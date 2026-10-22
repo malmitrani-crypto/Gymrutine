@@ -1,0 +1,145 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0707"><title>Mi Rutina de Gym</title>
+<style>
+:root{color-scheme:dark;--a:#e11d2e;--a2:#e11d2e22;--bd:#2e1b1b;--cd:#181111;--mu:#a89a9a}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;display:flex;height:100vh;background:linear-gradient(135deg,#0b0808,#1f0a0c);color:#f1e9e9;font:14px 'Segoe UI',system-ui,sans-serif}
+aside{width:200px;background:#080606;border-right:1px solid #2a1515;padding:14px 8px;flex:none}h1{font-size:20px;margin:6px 10px 14px}
+aside button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 14px;margin:2px 0;border:0;border-radius:10px;background:none;color:var(--mu);font-size:14px;cursor:pointer}
+aside button.on{background:var(--a);color:#fff}aside button:hover:not(.on){background:#1f1212;color:#fff}
+main{flex:1;overflow:auto;padding:16px}#bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+input,select{background:#120c0c;color:inherit;border:1px solid #3a2222;border-radius:10px;padding:9px 12px;font:inherit}input[type=text]{flex:1;min-width:180px}
+button{background:#120c0c;color:inherit;border:1px solid #3a2222;border-radius:10px;padding:9px 14px;cursor:pointer;font:inherit}button.p{background:var(--a);border:0;color:#fff;font-weight:600}
+h2{margin:18px 0 8px}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:8px;cursor:pointer}.c:hover,.e:hover{border-color:var(--a)}
+.c img,.ph{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:10px;background:#0f0a0a;display:block}
+.ph{display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(160deg,#2a0c10,#0b0707)}
+.c b{display:block;margin:6px 0 4px}.bd{font-size:11px;background:#000a;border:1px solid #3a2222;border-radius:8px;padding:2px 8px;display:inline-block;color:#ff9aa2}
+.nv{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.w{display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));gap:8px;overflow:auto}.d{border:1px solid var(--bd);border-radius:12px;padding:6px;min-height:300px}
+.d.c2{border-color:#6b5a1f;background:#f5a62310}.d.o{opacity:.75}.d h3{margin:0 0 6px;text-align:center;font-size:14px;padding:5px;border-radius:8px;background:var(--a)}
+.sg{display:flex;gap:4px;margin-bottom:8px}.sg button{flex:1;padding:7px 2px;font-size:12px;border-radius:8px}.sg button.on{background:var(--a);border-color:var(--a);color:#fff}.sg button.on.k{background:#f5a623;border-color:#f5a623;color:#1a1200}.sg button.on.z{background:#555;border-color:#555}
+.e{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:8px;cursor:pointer;display:flex;gap:12px;border-left:4px solid var(--a)}
+.e img,.e .ph{width:64px;flex:none;aspect-ratio:2/3;border-radius:8px;object-fit:cover;font-size:26px}.e .i{flex:1;min-width:0}.e b{display:block;font-size:14px;margin:2px 0}.e .h{font-size:20px;font-weight:700;color:#ff5a66}.e small{color:var(--mu);display:block}
+.tg{font-size:11px;padding:3px 10px;border-radius:20px;background:#f5a62326;color:#ffd48a;margin:0 0 8px;text-align:center}
+.w1{max-width:640px}.ds{display:flex;gap:6px;margin:4px 0 14px;max-width:640px}.ds button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border-radius:14px;min-width:0}.ds b{font-size:14px}.ds small{font-size:10px;color:var(--mu)}.ds button.on{background:var(--a);border-color:var(--a);color:#fff}.ds button.on small{color:#ffd6d9}.ds button.hy:not(.on){border-color:var(--a)}
+.em{color:#7d6d6d;text-align:center;padding:30px 10px}
+dialog{background:var(--cd);color:#f1e9e9;border:1px solid #3a2222;border-radius:14px;max-width:460px;width:92vw;max-height:90vh;overflow:auto}dialog::backdrop{background:#000b}dialog label{display:block;margin:10px 0}
+dialog input,dialog select{width:100%;margin-top:4px}dialog p:last-child{display:flex;flex-wrap:wrap;gap:8px}
+.pr{display:flex;gap:10px;align-items:center;padding:6px;border:1px solid var(--bd);border-radius:10px;margin:6px 0;cursor:pointer}.pr:hover{border-color:var(--a)}.pr.ok{border-color:var(--a);background:var(--a2)}
+.pr .ph,.pr img{width:36px;aspect-ratio:2/3;font-size:18px;border-radius:6px;flex:none;object-fit:cover}.pr small{color:var(--mu);display:block}#pl{max-height:48vh;overflow:auto}
+.big{width:130px;margin:0 auto 10px}.big .ph{font-size:50px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0;max-width:640px}.card h3{margin:0 0 8px}.mut{color:var(--mu)}
+#ts{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--a);color:#fff;padding:10px 16px;border-radius:12px;z-index:99;display:none}
+@media(max-width:760px){
+body{flex-direction:column;height:100dvh;font-size:15px}
+aside{order:2;width:100%;display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid #2a1515;z-index:5}
+aside h1{display:none}aside button{flex:1;flex-direction:column;gap:3px;justify-content:center;text-align:center;font-size:12px;padding:8px 4px;margin:0 3px;min-height:52px}
+main{padding:calc(12px + env(safe-area-inset-top)) 12px 16px;min-height:0}
+#bar input[type=text]{flex:1 0 100%;font-size:16px;padding:12px 14px}#bar select,#bar button{flex:1 1 40%;min-height:44px}
+.g{grid-template-columns:repeat(2,1fr);gap:10px}.c b{font-size:13px}
+.w{grid-template-columns:repeat(5,84vw);scroll-snap-type:x mandatory;gap:10px}.d{scroll-snap-align:center;min-height:55vh}
+dialog{margin:auto 0 0;width:100%;max-width:100%;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+dialog select,dialog input{min-height:46px;font-size:16px}dialog p:last-child button{flex:1 1 40%;min-height:46px}.nv button,.nv select{min-height:44px}}
+</style></head><body>
+<aside><h1>🏋 Gym</h1>
+<button data-p=cat><svg viewBox="0 0 24 24" width=20 height=20 fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><rect x=3 y=3 width=7 height=7 rx=1.5 /><rect x=14 y=3 width=7 height=7 rx=1.5 /><rect x=3 y=14 width=7 height=7 rx=1.5 /><rect x=14 y=14 width=7 height=7 rx=1.5 /></svg><span>Catálogo</span></button>
+<button data-p=wk class=on><svg viewBox="0 0 24 24" width=20 height=20 fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><rect x=3 y=5 width=18 height=16 rx=2 /><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Semana</span></button>
+<button data-p=cfg><svg viewBox="0 0 24 24" width=20 height=20 fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><circle cx=12 cy=12 r=3 /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg><span>Ajustes</span></button></aside>
+<main><div id=bar style="display:none"><input type=text id=q placeholder="Buscar ejercicio…"><select id=ty></select><button class=p data-a=nx>+ Ejercicio propio</button></div>
+<section id=cat hidden></section><section id=wk></section><section id=cfg hidden></section></main>
+<dialog id=dlg></dialog><div id=ts></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const DN=['Lunes','Martes','Miércoles','Jueves','Viernes'];
+const TY={Pecho:'🦍',Espalda:'🔙',Hombros:'🏔',Bíceps:'💪',Tríceps:'🦾',Piernas:'🦵',Glúteos:'🍑',Abdomen:'🎯',Cardio:'🏃',Funcional:'🔥',Estiramiento:'🧘',Propio:'⭐'};
+const EXS=`Pecho|Press banca plano,Press banca inclinado,Press banca declinado,Press con mancuernas,Aperturas con mancuernas,Cruce de poleas,Fondos en paralelas,Flexiones,Peck deck
+Espalda|Dominadas,Jalón al pecho,Remo con barra,Remo con mancuerna,Remo en polea baja,Peso muerto,Pullover,Remo en máquina,Hiperextensiones
+Hombros|Press militar,Press Arnold,Elevaciones laterales,Elevaciones frontales,Pájaros,Face pull,Encogimientos de trapecio,Remo al mentón
+Bíceps|Curl con barra,Curl con mancuernas,Curl martillo,Curl predicador,Curl concentrado,Curl en polea
+Tríceps|Press francés,Extensión en polea,Fondos en banco,Patada de tríceps,Press cerrado,Extensión sobre la cabeza
+Piernas|Sentadilla,Sentadilla frontal,Prensa de piernas,Zancadas,Sentadilla búlgara,Extensión de cuádriceps,Curl femoral,Peso muerto rumano,Elevación de talones,Sentadilla goblet,Step up
+Glúteos|Hip thrust,Puente de glúteos,Patada de glúteo en polea,Abducción en máquina,Sentadilla sumo
+Abdomen|Plancha,Crunch,Elevación de piernas,Rueda abdominal,Russian twist,Bicicleta abdominal,Plancha lateral,Mountain climbers
+Cardio|Cinta,Bicicleta fija,Elíptico,Remo ergómetro,Soga,Escaladora,Burpees
+Funcional|Kettlebell swing,Clean y press,Farmer walk,Battle ropes,Salto al cajón,Thruster,Slam de pelota medicinal
+Estiramiento|Estiramiento de isquios,Estiramiento de cuádriceps,Movilidad de cadera,Estiramiento de pecho,Gato-camello,Postura del niño`;
+const EX=[];EXS.split('\n').forEach(l=>{const[t,n]=l.split('|');n.split(',').forEach(x=>EX.push({id:'e'+EX.length,n:x,t}))});
+const day=()=>({m:'g',e:[]}),nr=()=>({d:[0,1,2,3,4].map(day),rep:[]}),def=()=>({r:{'Rutina A':nr()},a:'Rutina A',img:{},cx:[],kg:{}});
+let S=def(),doc=null,page='wk',tm,tt;const WD=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],TDf=()=>(new Date().getDay()+6)%7;let TD=TDf(),sel=TD<5?TD:null,pk=0;
+const all=()=>EX.concat(S.cx),by=id=>all().find(e=>e.id==id)||{n:'(eliminado)',t:'Propio'};
+const msg=t=>{const e=$('#ts');e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>e.style.display='none',2600)};
+const save=()=>{clearTimeout(tm);tm=setTimeout(()=>doc&&doc.set({j:JSON.stringify(S)}).catch(()=>msg('No se pudo guardar')),300)};
+const im=e=>S.img[e.id]?`<img src="${S.img[e.id]}" alt="">`:`<div class=ph>${TY[e.t]||'⭐'}</div>`;
+const rng=(a,b,s,v)=>{let o='';for(let n=a;n<=b+1e-9;n+=s)o+=`<option${n==v?' selected':''}>${n}</option>`;return o};
+const R=()=>S.r[S.a],LS=s=>s=='r'?(R().rep=R().rep||[]):R().d[s].e,dlg=$('#dlg');
+const EN=(x,s,j)=>{const e=by(x.i);return `<div class=e data-ed="${s}:${j}">${im(e)}<div class=i><b>${esc(e.n)}</b><div class=h>${x.s} × ${S.kg[x.i]||0} kg</div><small>series · peso máx.</small></div></div>`};
+const mig=()=>{S.kg=S.kg||{};Object.values(S.r).forEach(r=>{r.rep=r.rep||[];r.d.forEach(d=>d.e.forEach(x=>{if(x.k!=null){S.kg[x.i]=Math.max(S.kg[x.i]||0,x.k);delete x.k}}))})};
+/* Cerrado: la rutina se traslada un día desde el día cerrado; el viernes pasa a ser el día de reemplazo */
+const eff=()=>{const r=R(),o=[],p=[];let cl=0;r.d.forEach((d,i)=>{if(d.m=='c'){p.push(i);cl=1;o.push({t:'c'})}else if(d.m=='o')o.push({t:'o'});else if(i==4&&cl)o.push({s:'r',t:'rep'});else{p.push(i);const s=p.shift();o.push({s,t:s==i?'n':'sh'})}});return o};
+function rcat(){const q=$('#q').value.trim().toLowerCase(),t=$('#ty').value,l=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q));
+ $('#cat').innerHTML=l.length?`<div class=g>${l.map(e=>`<div class=c data-k="${e.id}">${im(e)}<b>${esc(e.n)}</b><span class=bd>${e.t}</span></div>`).join('')}</div>`:'<div class=em>Sin resultados</div>'}
+function rwk(){let h=`<div class=nv><select id=rs>${Object.keys(S.r).map(k=>`<option${k==S.a?' selected':''}>${esc(k)}`).join('')}</select><button class=p data-a=new>+ Nueva</button><button data-a=dup>Duplicar</button><button data-a=ren>Renombrar</button><button data-a=del>Borrar</button><button data-a=rep>Día de reemplazo</button></div><div class=ds>${DN.map((n,i)=>`<button data-sd="${i}" class="${i==sel?'on':''}${i==TD?' hy':''}"><b>${n.slice(0,3)}</b>${i==TD?'<small>Hoy</small>':''}</button>`).join('')}</div><div class=w1>`;
+ if(sel=='r'){const l=LS('r');h+=`<div class=d><h3>Día de reemplazo</h3><div class=tg>Reemplaza al viernes cuando hay un día cerrado</div>${l.map((x,j)=>EN(x,'r',j)).join('')||'<div class=em>Sin ejercicios</div>'}<button class=p style="width:100%" data-add="r">+ Agregar ejercicio</button></div>`}if(sel==null)h+=`<div class=em>Hoy es ${WD[new Date().getDay()]}: fin de semana, sin rutina.<br>Elegí un día arriba para verlo.</div>`;const E=eff();R().d.forEach((d,i)=>{if(i!=sel)return;const f=E[i],l=f.s!=null?LS(f.s):[];h+=`<div class="d${d.m=='c'?' c2':d.m=='o'?' o':''}"><h3>${DN[i]}${i==TD?' · Hoy':''}</h3><div class=sg>${[['g','Gym',''],['c','Cerrado','k'],['o','No voy','z']].map(([m,t,k])=>`<button data-m="${i}:${m}" class="${k}${d.m==m?' on':''}">${t}</button>`).join('')}</div>`;
+  if(d.m=='o')h+='<div class=em>Día libre 😴<br>Sin entrenamiento</div>';
+  else{if(d.m=='c')h+='<div class=tg>Gym cerrado · su rutina se traslada al día siguiente</div>';else if(f.t=='sh')h+=`<div class=tg>Rutina de ${DN[f.s]} (trasladada)</div>`;else if(f.t=='rep')h+='<div class=tg>Día de reemplazo</div>';
+   h+=l.map((x,j)=>EN(x,f.s,j)).join('');
+   if(!l.length&&d.m!='c')h+='<div class=em>Sin ejercicios</div>';
+   if(f.s!=null)h+=`<button class=p style="width:100%" data-add="${f.s}">+ Agregar ejercicio</button>`;
+   }
+  h+='</div>'});
+ $('#wk').innerHTML=h+'</div>'}
+function rcfg(){$('#cfg').innerHTML=`<h2>Ajustes</h2><div class=card><h3>Almacenamiento</h3><p class=mut>${doc?'Tus rutinas e imágenes se guardan en la propia página, no en el dispositivo.':'Sin conexión con el almacenamiento de la página: los cambios no se guardarán.'}</p></div><div class=card><h3>Copia de seguridad</h3><p class=mut>Exportá o importá tus rutinas, ejercicios propios y pesos máximos (sin imágenes).</p><button data-a=exp>Exportar</button> <button data-a=imp>Importar</button></div><div class=card><h3>Restablecer</h3><p class=mut>Borra todas las rutinas, ejercicios propios y referencias a imágenes.</p><button data-a=rst style="color:#ff6b6b">Restablecer todo</button></div>`}
+function render(){$('#cat').hidden=page!='cat';$('#wk').hidden=page!='wk';$('#cfg').hidden=page!='cfg';$('#bar').style.display=page=='cat'?'flex':'none';page=='cat'?rcat():page=='wk'?rwk():rcfg()}
+function ed(i,j){const l0=LS(i),x=l0[j],e=by(x.i);
+ dlg.innerHTML=`<h3>${esc(e.n)}</h3><label>Series<select id=es>${rng(1,12,1,x.s)}</select></label><label>Peso máximo alcanzado (kg)<select id=ek>${rng(0,300,2.5,S.kg[x.i]||0)}</select></label><p class=mut style="margin:0 0 8px;font-size:12px">El peso se actualiza en todas las veces que aparece este ejercicio.</p><p><button class=p id=ok>Listo</button><button id=up>▲ Subir</button><button id=dn>▼ Bajar</button><button id=rm style="color:#ff6b6b">Quitar</button></p>`;
+ $('#es').onchange=()=>{x.s=+$('#es').value;save();rwk()};$('#ek').onchange=()=>{S.kg[x.i]=+$('#ek').value;save();rwk()};$('#ok').onclick=()=>dlg.close();
+ const mv=k=>{const l=l0,n=j+k;if(n<0||n>=l.length)return;[l[j],l[n]]=[l[n],l[j]];save();rwk();dlg.close()};
+ $('#up').onclick=()=>mv(-1);$('#dn').onclick=()=>mv(1);$('#rm').onclick=()=>{l0.splice(j,1);save();rwk();dlg.close()};dlg.showModal()}
+function pick(i){const l0=LS(i),ids=new Set(l0.map(x=>x.i));
+ dlg.innerHTML=`<h3>Agregar a ${i=='r'?'día de reemplazo':DN[i]}</h3><input type=text id=pq placeholder="Buscar…"><select id=pt><option>Todo${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select><div id=pl></div><p><button class=p id=ok>Listo</button></p>`;
+ const f=()=>{const q=$('#pq').value.toLowerCase(),t=$('#pt').value;$('#pl').innerHTML=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q)).map(e=>`<div class="pr${ids.has(e.id)?' ok':''}" data-pk="${e.id}">${im(e)}<div><b>${esc(e.n)}</b><small>${e.t}${ids.has(e.id)?' · agregado ✓':''}</small></div></div>`).join('')||'<div class=em>Sin resultados</div>'};
+ $('#pq').oninput=f;$('#pt').onchange=f;f();$('#ok').onclick=()=>dlg.close();
+ $('#pl').onclick=ev=>{const r=ev.target.closest('[data-pk]');if(!r)return;const id=r.dataset.pk;if(ids.has(id))return;ids.add(id);l0.push({i:id,s:3});save();rwk();f()};
+ dlg.showModal()}
+function cdlg(id){const e=by(id),cus=S.cx.some(c=>c.id==id);
+ dlg.innerHTML=`<h3>${esc(e.n)}</h3><div class=big>${im(e)}</div><p class=mut style="text-align:center;margin:0 0 8px">${e.t}</p>
+ <label>Imagen (se guarda en la página)<input type=file id=fi accept="image/*"></label>${S.img[id]?'<button id=ri style="width:100%;margin-bottom:8px">Quitar imagen</button>':''}
+ <label>Día<select id=ad>${DN.map((n,i)=>`<option value=${i}>${n}`).join('')}<option value=r>Día de reemplazo</select></label>
+ 
+ <p><button class=p id=ag>Agregar a la semana</button>${cus?'<button id=dx style="color:#ff6b6b">Borrar ejercicio</button>':''}<button id=cl>Cerrar</button></p>`;
+ $('#cl').onclick=()=>dlg.close();
+ $('#fi').onchange=async()=>{const f=$('#fi').files[0];if(!f)return;try{const A=window.claude&&await claude.use('assets');if(!A){msg('La carga de imágenes no está disponible aquí');return}
+  const bm=await createImageBitmap(f),W=400,H=600,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),r=Math.max(W/bm.width,H/bm.height),w=bm.width*r,h=bm.height*r;x.drawImage(bm,(W-w)/2,(H-h)/2,w,h);
+  const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),u=await A.upload(b);S.img[id]=u.url;save();render();cdlg(id)}catch(er){msg('No se pudo subir la imagen')}};
+ if(S.img[id])$('#ri').onclick=()=>{delete S.img[id];save();render();cdlg(id)};
+ $('#ag').onclick=()=>{const v=$('#ad').value;LS(v=='r'?'r':+v).push({i:id,s:3});save();render();msg('Agregado a '+(v=='r'?'día de reemplazo':DN[+v]))};
+ if(cus)$('#dx').onclick=()=>{S.cx=S.cx.filter(c=>c.id!=id);delete S.img[id];Object.values(S.r).forEach(r=>{r.rep=(r.rep||[]).filter(x=>x.i!=id);r.d.forEach(d=>{d.e=d.e.filter(x=>x.i!=id)})});delete S.kg[id];save();dlg.close();render()};
+ dlg.showModal()}
+function nx(){dlg.innerHTML=`<h3>Ejercicio propio</h3><label>Nombre<input type=text id=nn></label><label>Tipo<select id=nt>${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select></label><p><button class=p id=ok>Crear</button><button id=cl>Cancelar</button></p>`;
+ $('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{const n=$('#nn').value.trim();if(!n)return;S.cx.push({id:'c'+Date.now(),n,t:$('#nt').value});save();dlg.close();render()};dlg.showModal()}
+const TA='width:100%;background:#120c0c;color:inherit;border:1px solid #3a2222;border-radius:10px;padding:8px';
+function exp(){const t=JSON.stringify({v:1,r:S.r,a:S.a,cx:S.cx,kg:S.kg});dlg.innerHTML=`<h3>Exportar datos</h3><p class=mut style="margin:0 0 8px">Copiá el texto o descargalo como archivo. No incluye las imágenes.</p><textarea id=xt readonly style="${TA};height:160px"></textarea><p><button class=p id=dl>Descargar archivo</button><button id=cp>Copiar</button><button id=cl>Cerrar</button></p>`;
+ $('#xt').value=t;$('#cl').onclick=()=>dlg.close();
+ $('#cp').onclick=()=>{$('#xt').select();try{navigator.clipboard.writeText(t).then(()=>msg('Copiado'),()=>document.execCommand('copy'))}catch(e){document.execCommand('copy')}};
+ $('#dl').onclick=async()=>{try{const D=window.claude&&await claude.use('downloads');if(!D)throw 0;await D.save({filename:'rutina-gym.json',data:t})}catch(e){msg('Descarga no disponible: copiá el texto')}};dlg.showModal()}
+function imp(){dlg.innerHTML=`<h3>Importar datos</h3><p class=mut style="margin:0 0 8px">Reemplaza tus rutinas actuales. Elegí un archivo o pegá el texto.</p><input type=file id=if accept=".json,application/json"><textarea id=it placeholder="O pegá aquí el texto exportado" style="${TA};height:120px;margin-top:8px"></textarea><p><button class=p id=ok>Importar</button><button id=cl>Cancelar</button></p>`;
+ $('#cl').onclick=()=>dlg.close();$('#if').onchange=async()=>{const f=$('#if').files[0];if(f)$('#it').value=await f.text()};
+ $('#ok').onclick=()=>{try{const o=JSON.parse($('#it').value);if(!o.r||!Object.keys(o.r).length||!Object.values(o.r).every(r=>Array.isArray(r.d)&&r.d.length==5))throw 0;S={...S,r:o.r,a:o.r[o.a]?o.a:Object.keys(o.r)[0],cx:Array.isArray(o.cx)?o.cx:[],kg:o.kg||{}};mig();save();dlg.close();render();msg('Datos importados')}catch(e){msg('Archivo o texto no válido')}};dlg.showModal()}
+function nm(a){const t={new:'Nueva rutina',dup:'Duplicar rutina',ren:'Renombrar rutina'}[a];
+ dlg.innerHTML=`<h3>${t}</h3><label>Nombre<input type=text id=nn value="${a=='ren'?esc(S.a):''}" placeholder="Ej: Rutina B, Hipertrofia…"></label><p><button class=p id=ok>Aceptar</button><button id=cl>Cancelar</button></p>`;
+ $('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{const n=$('#nn').value.trim();if(!n)return;if(S.r[n]&&!(a=='ren'&&n==S.a)){msg('Ya existe ese nombre');return}
+  if(a=='ren'){const o={};for(const k in S.r)o[k==S.a?n:k]=S.r[k];S.r=o}else S.r[n]=a=='dup'?JSON.parse(JSON.stringify(R())):nr();S.a=n;save();dlg.close();render()};dlg.showModal()}
+function cf(txt,fn){dlg.innerHTML=`<h3>${txt}</h3><p><button class=p id=ok style="background:#b3121f">Confirmar</button><button id=cl>Cancelar</button></p>`;$('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{fn();save();dlg.close();render()};dlg.showModal()}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-p],[data-k],[data-a],[data-m],[data-add],[data-ed],[data-sd]');if(!t)return;const D=t.dataset;
+ if(D.p){page=D.p;document.querySelectorAll('aside button').forEach(b=>b.classList.toggle('on',b==t));render()}
+ else if(D.sd!=null){sel=+D.sd;pk=1;rwk()}else if(D.k)cdlg(D.k);else if(D.ed){const[a,b]=D.ed.split(':');ed(a=='r'?'r':+a,+b)}else if(D.add!=null)pick(D.add=='r'?'r':+D.add);
+ else if(D.m){const[i,m]=D.m.split(':');R().d[+i].m=m;save();rwk()}
+ else if(D.a=='rep'){sel='r';pk=1;rwk()}
+ else if(D.a=='exp')exp();else if(D.a=='imp')imp();else if(D.a=='nx')nx();else if(['new','dup','ren'].includes(D.a))nm(D.a);
+ else if(D.a=='del'){if(Object.keys(S.r).length<2){msg('Tiene que quedar al menos una rutina');return}cf(`¿Borrar «${esc(S.a)}»?`,()=>{delete S.r[S.a];S.a=Object.keys(S.r)[0]})}
+ else if(D.a=='rst')cf('¿Restablecer todo? No se puede deshacer.',()=>{S=def()})});
+document.addEventListener('change',e=>{if(e.target.id=='rs'){S.a=e.target.value;save();rwk()}else if(e.target.id=='ty')rcat()});
+let sx=0;$('#wk').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('#wk').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&!dlg.open){sel=Math.min(4,Math.max(0,(typeof sel!='number'?(dx<0?-1:5):sel)+(dx<0?1:-1)));pk=1;rwk()}});document.addEventListener('visibilitychange',()=>{if(!document.hidden){const t=TDf();if(t!=TD){TD=t;if(!pk)sel=t<5?t:null;if(page=='wk')rwk()}}});
+$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
+render();
+(async()=>{try{const db=window.claude&&await claude.use('db');if(!db){rcfg();return}doc=db.doc('gym/state');const s=await doc.get();if(s.exists&&s.data().j){S={...def(),...JSON.parse(s.data().j)};mig()}}catch(er){doc=null}render()})();
+</script></body></html>
