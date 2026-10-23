@@ -27,8 +27,10 @@ dialog input,dialog select{width:100%;margin-top:4px}dialog p:last-child{display
 .pr{display:flex;gap:10px;align-items:center;padding:6px;border:1px solid var(--bd);border-radius:10px;margin:6px 0;cursor:pointer}.pr:hover{border-color:var(--a)}.pr.ok{border-color:var(--a);background:var(--a2)}
 .pr .ph,.pr img{width:36px;aspect-ratio:2/3;font-size:18px;border-radius:6px;flex:none;object-fit:cover}.pr small{color:var(--mu);display:block}#pl{max-height:48vh;overflow:auto}
 .big{width:130px;margin:0 auto 10px}.big .ph{font-size:50px}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}.hd h3{margin:0}.hd button{width:40px;height:40px;padding:0;font-size:20px;line-height:1;flex:none}dialog.full .hd{flex:none}
 dialog.full[open]{display:flex;flex-direction:column;height:92vh;height:92dvh}dialog.full #pl{flex:1 1 0;max-height:none;min-height:0}dialog.full input,dialog.full select,dialog.full p,dialog.full h3{flex:none}
 .card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0;max-width:640px}.card h3{margin:0 0 8px}.mut{color:var(--mu)}
+#sb{position:fixed;inset:0;z-index:50}#sb[hidden]{display:none}#sbk{position:absolute;inset:0;background:#000b}#sp{position:absolute;top:0;bottom:0;right:0;width:min(300px,85vw);background:var(--cd);border-left:1px solid #3a2222;padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));overflow:auto;display:flex;flex-direction:column;gap:8px;animation:sl .18s ease}@keyframes sl{from{transform:translateX(100%)}}#sp select,#sp button{width:100%;min-height:44px}#sp button{text-align:left}#sp h3{margin:0 0 6px}#sp hr{border:0;border-top:1px solid var(--bd);width:100%;margin:4px 0}
 #ts{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--a);color:#fff;padding:10px 16px;border-radius:12px;z-index:99;display:none}
 @media(max-width:760px){
 body{flex-direction:column;height:100dvh;font-size:15px}
@@ -47,7 +49,7 @@ dialog.full[open]{margin:0;width:100%;max-width:100%;height:100dvh;max-height:10
 <button data-p=cfg><svg viewBox="0 0 24 24" width=20 height=20 fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><circle cx=12 cy=12 r=3 /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg><span>Ajustes</span></button></aside>
 <main><div id=bar style="display:none"><input type=text id=q placeholder="Buscar ejercicio…"><select id=ty></select><button class=p data-a=nx>+ Ejercicio propio</button></div>
 <section id=cat hidden></section><section id=wk></section><section id=cfg hidden></section></main>
-<dialog id=dlg></dialog><div id=ts></div>
+<dialog id=dlg></dialog><div id=ts></div><div id=sb hidden><div id=sbk data-a=cls></div><nav id=sp></nav></div>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const DN=['Lunes','Martes','Miércoles','Jueves','Viernes'];
@@ -91,7 +93,7 @@ const mig=()=>{S.kg=S.kg||{};Object.values(S.r).forEach(r=>{r.rep=r.rep||[];r.d.
 const eff=()=>{const r=R(),o=[],p=[];let cl=0;r.d.forEach((d,i)=>{if(d.m=='c'){p.push(i);cl=1;o.push({t:'c'})}else if(d.m=='o')o.push({t:'o'});else if(i==4&&cl)o.push({s:'r',t:'rep'});else{p.push(i);const s=p.shift();o.push({s,t:s==i?'n':'sh'})}});return o};
 function rcat(){const q=$('#q').value.trim().toLowerCase(),t=$('#ty').value,l=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q));
  $('#cat').innerHTML=l.length?`<div class=g>${l.map(e=>`<div class=c data-k="${e.id}">${im(e)}<b>${esc(e.n)}</b><span class=bd>${e.t}</span></div>`).join('')}</div>`:'<div class=em>Sin resultados</div>'}
-function rwk(){let h=`<div class=nv><select id=rs>${Object.keys(S.r).map(k=>`<option${k==S.a?' selected':''}>${esc(k)}`).join('')}</select><button class=p data-a=new>+ Nueva</button><button data-a=dup>Duplicar</button><button data-a=ren>Renombrar</button><button data-a=del>Borrar</button><button data-a=rep>Día de reemplazo</button></div><div class=ds>${DN.map((n,i)=>`<button data-sd="${i}" class="${i==sel?'on':''}${i==TD?' hy':''}"><b>${n.slice(0,3)}</b>${i==TD?'<small>Hoy</small>':''}</button>`).join('')}</div><div class=w1>`;
+function rwk(){let h=`<div class=nv><button data-a=menu>☰ ${esc(S.a)}</button></div><div class=ds>${DN.map((n,i)=>`<button data-sd="${i}" class="${i==sel?'on':''}${i==TD?' hy':''}"><b>${n.slice(0,3)}</b>${i==TD?'<small>Hoy</small>':''}</button>`).join('')}</div><div class=w1>`;
  if(sel=='r'){const l=LS('r');h+=`<div class=d><h3>Día de reemplazo</h3><div class=tg>Reemplaza al viernes cuando hay un día cerrado</div>${l.map((x,j)=>EN(x,'r',j)).join('')||'<div class=em>Sin ejercicios</div>'}<button class=p style="width:100%" data-add="r">+ Agregar ejercicio</button></div>`}if(sel==null)h+=`<div class=em>Hoy es ${WD[new Date().getDay()]}: fin de semana, sin rutina.<br>Elegí un día arriba para verlo.</div>`;const E=eff();R().d.forEach((d,i)=>{if(i!=sel)return;const f=E[i],l=f.s!=null?LS(f.s):[];h+=`<div class="d${d.m=='c'?' c2':d.m=='o'?' o':''}"><h3>${DN[i]}${i==TD?' · Hoy':''}</h3><div class=sg>${[['g','Gym',''],['c','Cerrado','k'],['o','No voy','z']].map(([m,t,k])=>`<button data-m="${i}:${m}" class="${k}${d.m==m?' on':''}">${t}</button>`).join('')}</div>`;
   if(d.m=='o')h+='<div class=em>Día libre 😴<br>Sin entrenamiento</div>';
   else{if(d.m=='c')h+='<div class=tg>Gym cerrado · su rutina se traslada al día siguiente</div>';else if(f.t=='sh')h+=`<div class=tg>Rutina de ${DN[f.s]} (trasladada)</div>`;else if(f.t=='rep')h+='<div class=tg>Día de reemplazo</div>';
@@ -109,9 +111,9 @@ function ed(i,j){const l0=LS(i),x=l0[j],e=by(x.i);
  const mv=k=>{const l=l0,n=j+k;if(n<0||n>=l.length)return;[l[j],l[n]]=[l[n],l[j]];save();rwk();dlg.close()};
  $('#up').onclick=()=>mv(-1);$('#dn').onclick=()=>mv(1);$('#rm').onclick=()=>{l0.splice(j,1);save();rwk();dlg.close()};dlg.showModal()}
 function pick(i){const l0=LS(i),pre=new Set(l0.map(x=>x.i)),ad={};dlg.className='full';
- dlg.innerHTML=`<h3>Agregar a ${i=='r'?'día de reemplazo':DN[i]}</h3><input type=text id=pq placeholder="Buscar…"><select id=pt><option>Todo${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select><div id=pl></div><p><button class=p id=ok>Listo</button></p>`;
+ dlg.innerHTML=`<div class=hd><h3>Agregar a ${i=='r'?'día de reemplazo':DN[i]}</h3><button id=xx aria-label="Cerrar">✕</button></div><input type=text id=pq placeholder="Buscar…"><select id=pt><option>Todo${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select><div id=pl></div><p><button class=p id=ok>Listo</button></p>`;
  const f=()=>{const q=$('#pq').value.toLowerCase(),t=$('#pt').value;$('#pl').innerHTML=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q)).map(e=>`<div class="pr${ad[e.id]?' ok':''}" style="${pre.has(e.id)?'opacity:.45;cursor:default':''}" data-pk="${e.id}">${im(e)}<div><b>${esc(e.n)}</b><small>${e.t}${ad[e.id]?' · agregado ✓ (tocá para quitar)':pre.has(e.id)?' · ya está en el día':''}</small></div></div>`).join('')||'<div class=em>Sin resultados</div>'};
- $('#pq').oninput=f;$('#pt').onchange=f;f();$('#ok').onclick=()=>dlg.close();
+ $('#pq').oninput=f;$('#pt').onchange=f;f();$('#ok').onclick=()=>dlg.close();$('#xx').onclick=()=>dlg.close();
  $('#pl').onclick=ev=>{const r=ev.target.closest('[data-pk]');if(!r)return;const id=r.dataset.pk;if(pre.has(id))return;if(ad[id]){l0.splice(l0.indexOf(ad[id]),1);delete ad[id]}else{ad[id]={i:id,s:3};l0.push(ad[id])}save();rwk();f()};
  dlg.showModal();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}
 function cdlg(id){const e=by(id),cus=S.cx.some(c=>c.id==id);
@@ -138,20 +140,21 @@ function exp(){const t=JSON.stringify({v:1,r:S.r,a:S.a,cx:S.cx,kg:S.kg});dlg.inn
 function imp(){dlg.innerHTML=`<h3>Importar datos</h3><p class=mut style="margin:0 0 8px">Reemplaza tus rutinas actuales. Elegí un archivo o pegá el texto.</p><input type=file id=if accept=".json,application/json"><textarea id=it placeholder="O pegá aquí el texto exportado" style="${TA};height:120px;margin-top:8px"></textarea><p><button class=p id=ok>Importar</button><button id=cl>Cancelar</button></p>`;
  $('#cl').onclick=()=>dlg.close();$('#if').onchange=async()=>{const f=$('#if').files[0];if(f)$('#it').value=await f.text()};
  $('#ok').onclick=()=>{try{const o=JSON.parse($('#it').value);if(!o.r||!Object.keys(o.r).length||!Object.values(o.r).every(r=>Array.isArray(r.d)&&r.d.length==5))throw 0;S={...S,r:o.r,a:o.r[o.a]?o.a:Object.keys(o.r)[0],cx:Array.isArray(o.cx)?o.cx:[],kg:o.kg||{}};mig();save();dlg.close();render();msg('Datos importados')}catch(e){msg('Archivo o texto no válido')}};dlg.showModal()}
+function menu(){$('#sp').innerHTML=`<h3>Rutinas</h3><select id=rs>${Object.keys(S.r).map(k=>`<option${k==S.a?' selected':''}>${esc(k)}`).join('')}</select><button class=p data-a=new>+ Nueva rutina</button><button data-a=dup>Duplicar</button><button data-a=ren>Renombrar</button><button data-a=del>Borrar</button><hr><button data-a=rep>Día de reemplazo</button><button data-a=cls>Cerrar</button>`;$('#sb').hidden=false}
 function nm(a){const t={new:'Nueva rutina',dup:'Duplicar rutina',ren:'Renombrar rutina'}[a];
  dlg.innerHTML=`<h3>${t}</h3><label>Nombre<input type=text id=nn value="${a=='ren'?esc(S.a):''}" placeholder="Ej: Rutina B, Hipertrofia…"></label><p><button class=p id=ok>Aceptar</button><button id=cl>Cancelar</button></p>`;
  $('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{const n=$('#nn').value.trim();if(!n)return;if(S.r[n]&&!(a=='ren'&&n==S.a)){msg('Ya existe ese nombre');return}
   if(a=='ren'){const o={};for(const k in S.r)o[k==S.a?n:k]=S.r[k];S.r=o}else S.r[n]=a=='dup'?JSON.parse(JSON.stringify(R())):nr();S.a=n;save();dlg.close();render()};dlg.showModal()}
 function cf(txt,fn){dlg.innerHTML=`<h3>${txt}</h3><p><button class=p id=ok style="background:#b3121f">Confirmar</button><button id=cl>Cancelar</button></p>`;$('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{fn();save();dlg.close();render()};dlg.showModal()}
-document.addEventListener('click',e=>{const t=e.target.closest('[data-p],[data-k],[data-a],[data-m],[data-add],[data-ed],[data-sd]');if(!t)return;const D=t.dataset;
+document.addEventListener('click',e=>{const t=e.target.closest('[data-p],[data-k],[data-a],[data-m],[data-add],[data-ed],[data-sd]');if(!t)return;const D=t.dataset;if(t.closest('#sb')){$('#sb').hidden=true;if(D.a=='cls')return}
  if(D.p){page=D.p;document.querySelectorAll('aside button').forEach(b=>b.classList.toggle('on',b==t));render()}
  else if(D.sd!=null){sel=+D.sd;pk=1;rwk()}else if(D.k)cdlg(D.k);else if(D.ed){const[a,b]=D.ed.split(':');ed(a=='r'?'r':+a,+b)}else if(D.add!=null)pick(D.add=='r'?'r':+D.add);
  else if(D.m){const[i,m]=D.m.split(':');R().d[+i].m=m;save();rwk()}
- else if(D.a=='rep'){sel='r';pk=1;rwk()}
+ else if(D.a=='menu')menu();else if(D.a=='rep'){sel='r';pk=1;rwk()}
  else if(D.a=='exp')exp();else if(D.a=='imp')imp();else if(D.a=='nx')nx();else if(['new','dup','ren'].includes(D.a))nm(D.a);
  else if(D.a=='del'){if(Object.keys(S.r).length<2){msg('Tiene que quedar al menos una rutina');return}cf(`¿Borrar «${esc(S.a)}»?`,()=>{delete S.r[S.a];S.a=Object.keys(S.r)[0]})}
  else if(D.a=='rst')cf('¿Restablecer todo? No se puede deshacer.',()=>{S=def()})});
-document.addEventListener('change',e=>{if(e.target.id=='rs'){S.a=e.target.value;save();rwk()}else if(e.target.id=='ty')rcat()});
+document.addEventListener('change',e=>{if(e.target.id=='rs'){S.a=e.target.value;save();$('#sb').hidden=true;rwk()}else if(e.target.id=='ty')rcat()});
 let sx=0;$('#wk').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('#wk').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&!dlg.open){sel=Math.min(4,Math.max(0,(typeof sel!='number'?(dx<0?-1:5):sel)+(dx<0?1:-1)));pk=1;rwk()}});document.addEventListener('visibilitychange',()=>{if(!document.hidden){const t=TDf();if(t!=TD){TD=t;if(!pk)sel=t<5?t:null;if(page=='wk')rwk()}}});
 dlg.addEventListener('close',()=>dlg.className='');$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
 render();
