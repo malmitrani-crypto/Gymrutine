@@ -94,11 +94,11 @@ function ed(i,j){const l0=LS(i),x=l0[j],e=by(x.i);
  $('#es').onchange=()=>{x.s=+$('#es').value;save();rwk()};$('#ek').onchange=()=>{S.kg[x.i]=+$('#ek').value;save();rwk()};$('#ok').onclick=()=>dlg.close();
  const mv=k=>{const l=l0,n=j+k;if(n<0||n>=l.length)return;[l[j],l[n]]=[l[n],l[j]];save();rwk();dlg.close()};
  $('#up').onclick=()=>mv(-1);$('#dn').onclick=()=>mv(1);$('#rm').onclick=()=>{l0.splice(j,1);save();rwk();dlg.close()};dlg.showModal()}
-function pick(i){const l0=LS(i),ids=new Set(l0.map(x=>x.i));
+function pick(i){const l0=LS(i),pre=new Set(l0.map(x=>x.i)),ad={};
  dlg.innerHTML=`<h3>Agregar a ${i=='r'?'día de reemplazo':DN[i]}</h3><input type=text id=pq placeholder="Buscar…"><select id=pt><option>Todo${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select><div id=pl></div><p><button class=p id=ok>Listo</button></p>`;
- const f=()=>{const q=$('#pq').value.toLowerCase(),t=$('#pt').value;$('#pl').innerHTML=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q)).map(e=>`<div class="pr${ids.has(e.id)?' ok':''}" data-pk="${e.id}">${im(e)}<div><b>${esc(e.n)}</b><small>${e.t}${ids.has(e.id)?' · agregado ✓':''}</small></div></div>`).join('')||'<div class=em>Sin resultados</div>'};
+ const f=()=>{const q=$('#pq').value.toLowerCase(),t=$('#pt').value;$('#pl').innerHTML=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q)).map(e=>`<div class="pr${ad[e.id]?' ok':''}" style="${pre.has(e.id)?'opacity:.45;cursor:default':''}" data-pk="${e.id}">${im(e)}<div><b>${esc(e.n)}</b><small>${e.t}${ad[e.id]?' · agregado ✓ (tocá para quitar)':pre.has(e.id)?' · ya está en el día':''}</small></div></div>`).join('')||'<div class=em>Sin resultados</div>'};
  $('#pq').oninput=f;$('#pt').onchange=f;f();$('#ok').onclick=()=>dlg.close();
- $('#pl').onclick=ev=>{const r=ev.target.closest('[data-pk]');if(!r)return;const id=r.dataset.pk;if(ids.has(id))return;ids.add(id);l0.push({i:id,s:3});save();rwk();f()};
+ $('#pl').onclick=ev=>{const r=ev.target.closest('[data-pk]');if(!r)return;const id=r.dataset.pk;if(pre.has(id))return;if(ad[id]){l0.splice(l0.indexOf(ad[id]),1);delete ad[id]}else{ad[id]={i:id,s:3};l0.push(ad[id])}save();rwk();f()};
  dlg.showModal()}
 function cdlg(id){const e=by(id),cus=S.cx.some(c=>c.id==id);
  dlg.innerHTML=`<h3>${esc(e.n)}</h3><div class=big>${im(e)}</div><p class=mut style="text-align:center;margin:0 0 8px">${e.t}</p>
