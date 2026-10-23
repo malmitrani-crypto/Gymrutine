@@ -27,6 +27,7 @@ dialog input,dialog select{width:100%;margin-top:4px}dialog p:last-child{display
 .pr{display:flex;gap:10px;align-items:center;padding:6px;border:1px solid var(--bd);border-radius:10px;margin:6px 0;cursor:pointer}.pr:hover{border-color:var(--a)}.pr.ok{border-color:var(--a);background:var(--a2)}
 .pr .ph,.pr img{width:36px;aspect-ratio:2/3;font-size:18px;border-radius:6px;flex:none;object-fit:cover}.pr small{color:var(--mu);display:block}#pl{max-height:48vh;overflow:auto}
 .big{width:130px;margin:0 auto 10px}.big .ph{font-size:50px}
+dialog.full[open]{display:flex;flex-direction:column;height:92vh;height:92dvh}dialog.full #pl{flex:1;max-height:none;min-height:0}
 .card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0;max-width:640px}.card h3{margin:0 0 8px}.mut{color:var(--mu)}
 #ts{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--a);color:#fff;padding:10px 16px;border-radius:12px;z-index:99;display:none}
 @media(max-width:760px){
@@ -38,7 +39,7 @@ main{padding:calc(12px + env(safe-area-inset-top)) 12px 16px;min-height:0}
 .g{grid-template-columns:repeat(2,1fr);gap:10px}.c b{font-size:13px}
 .w{grid-template-columns:repeat(5,84vw);scroll-snap-type:x mandatory;gap:10px}.d{scroll-snap-align:center;min-height:55vh}
 dialog{margin:auto 0 0;width:100%;max-width:100%;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
-dialog select,dialog input{min-height:46px;font-size:16px}dialog p:last-child button{flex:1 1 40%;min-height:46px}.nv button,.nv select{min-height:44px}}
+dialog.full[open]{margin:0;width:100%;max-width:100%;height:100dvh;max-height:100dvh;border-radius:0;padding-top:calc(14px + env(safe-area-inset-top))}dialog select,dialog input{min-height:46px;font-size:16px}dialog p:last-child button{flex:1 1 40%;min-height:46px}.nv button,.nv select{min-height:44px}}
 </style></head><body>
 <aside><h1>🏋 Gym</h1>
 <button data-p=cat><svg viewBox="0 0 24 24" width=20 height=20 fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><rect x=3 y=3 width=7 height=7 rx=1.5 /><rect x=14 y=3 width=7 height=7 rx=1.5 /><rect x=3 y=14 width=7 height=7 rx=1.5 /><rect x=14 y=14 width=7 height=7 rx=1.5 /></svg><span>Catálogo</span></button>
@@ -50,7 +51,7 @@ dialog select,dialog input{min-height:46px;font-size:16px}dialog p:last-child bu
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const DN=['Lunes','Martes','Miércoles','Jueves','Viernes'];
-const TY={Pecho:'🦍',Espalda:'🔙',Hombros:'🏔',Bíceps:'💪',Tríceps:'🦾',Piernas:'🦵',Glúteos:'🍑',Abdomen:'🎯',Cardio:'🏃',Funcional:'🔥',Estiramiento:'🧘',Propio:'⭐'};
+const TY={Pecho:'🦍',Espalda:'🔙',Hombros:'🏔',Bíceps:'💪',Tríceps:'🦾',Piernas:'🦵',Glúteos:'🍑',Abdomen:'🎯',Cardio:'🏃',Funcional:'🔥',Estiramiento:'🧘',Trapecio:'🔺',Antebrazos:'🤜',Propio:'⭐'};
 const EXS=`Pecho|Press banca plano,Press banca inclinado,Press banca declinado,Press con mancuernas,Aperturas con mancuernas,Cruce de poleas,Fondos en paralelas,Flexiones,Peck deck
 Espalda|Dominadas,Jalón al pecho,Remo con barra,Remo con mancuerna,Remo en polea baja,Peso muerto,Pullover,Remo en máquina,Hiperextensiones
 Hombros|Press militar,Press Arnold,Elevaciones laterales,Elevaciones frontales,Pájaros,Face pull,Encogimientos de trapecio,Remo al mentón
@@ -61,11 +62,24 @@ Glúteos|Hip thrust,Puente de glúteos,Patada de glúteo en polea,Abducción en 
 Abdomen|Plancha,Crunch,Elevación de piernas,Rueda abdominal,Russian twist,Bicicleta abdominal,Plancha lateral,Mountain climbers
 Cardio|Cinta,Bicicleta fija,Elíptico,Remo ergómetro,Soga,Escaladora,Burpees
 Funcional|Kettlebell swing,Clean y press,Farmer walk,Battle ropes,Salto al cajón,Thruster,Slam de pelota medicinal
-Estiramiento|Estiramiento de isquios,Estiramiento de cuádriceps,Movilidad de cadera,Estiramiento de pecho,Gato-camello,Postura del niño`;
+Estiramiento|Estiramiento de isquios,Estiramiento de cuádriceps,Movilidad de cadera,Estiramiento de pecho,Gato-camello,Postura del niño
+Pecho|Press de pecho en máquina,Press inclinado en máquina,Press declinado en máquina,Press en máquina Smith,Press inclinado con mancuernas,Press declinado con mancuernas,Aperturas inclinadas con mancuernas,Aperturas en máquina,Cruce de poleas altas,Cruce de poleas bajas,Press en suelo,Fondos asistidos en máquina,Flexiones diamante,Flexiones declinadas,Pullover con mancuerna,Press con agarre neutro
+Espalda|Peso muerto convencional,Peso muerto sumo,Peso muerto con barra hexagonal,Peso muerto déficit,Rack pull,Remo en T,Remo Pendlay,Remo en máquina Hammer,Remo sentado en máquina,Remo unilateral en polea,Remo con agarre supino,Jalón al pecho agarre cerrado,Jalón al pecho agarre neutro,Jalón unilateral,Jalón tras nuca,Dominadas asistidas en máquina,Dominadas supinas,Dominadas con agarre neutro,Pullover en polea,Pullover en máquina,Remo inclinado con mancuernas,Remo Meadows,Extensión lumbar en banco romano,Superman,Buenos días
+Hombros|Press de hombros en máquina,Press con mancuernas sentado,Press militar con barra de pie,Press de hombros en máquina Smith,Elevaciones laterales en polea,Elevaciones laterales en máquina,Elevaciones laterales inclinado,Elevaciones frontales con disco,Elevaciones frontales en polea,Press Landmine,Pájaros inclinado (deltoides posterior),Pájaros en polea (deltoides posterior),Pájaros en máquina (deltoides posterior),Pájaros en banco boca abajo (deltoides posterior),Face pull con soga (deltoides posterior),Remo alto agarre abierto (deltoides posterior),Elevaciones en Y (deltoides posterior),Rotación externa con polea (deltoides posterior),Rotación externa con mancuerna
+Trapecio|Encogimientos con mancuernas,Encogimientos con barra,Encogimientos en máquina,Encogimientos en máquina Smith,Remo al mentón en polea
+Bíceps|Curl en máquina,Curl predicador en máquina,Curl con barra Z,Curl inclinado con mancuernas,Curl Spider,Curl en polea alta,Curl con agarre invertido,Curl Zottman,Curl 21s,Curl con cuerda en polea
+Tríceps|Extensión de tríceps en máquina,Fondos en máquina,Extensión con cuerda en polea,Extensión con barra V,Press JM,Extensión unilateral en polea,Press cerrado en máquina Smith,Patada de tríceps en polea,Fondos entre bancos,Skull crusher con mancuernas,Extensión de tríceps con mancuerna a una mano
+Antebrazos|Curl de muñeca,Curl de muñeca inverso,Farmer walk (agarre),Rodillo de antebrazo,Colgado en barra
+Piernas|Prensa 45°,Prensa horizontal,Hack squat,Sentadilla en máquina Smith,Sentadilla libre con barra alta,Sentadilla con pausa,Sentadilla en cajón,Sentadilla Zercher,Sentadilla pistol,Zancada caminando,Zancada reversa,Zancada lateral,Zancada con mancuernas,Curl femoral sentado,Curl femoral acostado,Curl femoral de pie,Curl nórdico,Peso muerto rumano con mancuernas,Peso muerto a una pierna,Peso muerto piernas rígidas,Aductores en máquina,Abductores en máquina,Gemelos sentado en máquina,Gemelos de pie en máquina,Gemelos en prensa,Gemelos con mancuernas,Sissy squat,Step up lateral,Sentadilla pendular en máquina
+Glúteos|Hip thrust en máquina,Hip thrust con barra,Hip thrust a una pierna,Patada de glúteo en máquina,Patada de glúteo con tobillera,Abducción con banda,Puente de glúteos a una pierna,Extensión de cadera en polea,Hiperextensión de glúteo,Donkey kicks,Fire hydrants,Clamshell con banda,Sentadilla sumo con mancuerna
+Abdomen|Crunch en máquina,Crunch en polea,Crunch inverso,Elevación de rodillas en barra,Elevación de piernas colgado,Rotación de tronco en máquina,Leñador en polea,Rueda abdominal de rodillas,Plancha con toque de hombro,Dead bug,Hollow hold,V-ups,Bird dog,Toques de talón,Pallof press,Tijeras abdominales
+Cardio|Cinta con inclinación,Trote suave,HIIT en bicicleta,Natación,Salto de tijera,Skipping,Escalera,Trineo (sled push),Ciclismo al aire libre,Caminata
+Funcional|Kettlebell snatch,Kettlebell goblet squat,Turkish get-up,Sled pull,Salto de rana,Snatch con mancuerna,Arranque con barra,Cargada de potencia,Swing con mancuerna,Burpee con salto al cajón,Bear crawl,Lanzamiento de pelota
+Estiramiento|Estiramiento de gemelos,Estiramiento de aductores,Estiramiento de glúteos (paloma),Estiramiento de hombros,Estiramiento de tríceps,Estiramiento de espalda baja,Movilidad de columna torácica,Movilidad de hombros con banda,Rodillo de espuma`;
 const EX=[];EXS.split('\n').forEach(l=>{const[t,n]=l.split('|');n.split(',').forEach(x=>EX.push({id:'e'+EX.length,n:x,t}))});
 const day=()=>({m:'g',e:[]}),nr=()=>({d:[0,1,2,3,4].map(day),rep:[]}),def=()=>({r:{'Rutina A':nr()},a:'Rutina A',img:{},cx:[],kg:{}});
 let S=def(),doc=null,page='wk',tm,tt;const WD=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],TDf=()=>(new Date().getDay()+6)%7;let TD=TDf(),sel=TD<5?TD:null,pk=0;
-const all=()=>EX.concat(S.cx),by=id=>all().find(e=>e.id==id)||{n:'(eliminado)',t:'Propio'};
+const all=()=>{const k=Object.keys(TY);return EX.concat(S.cx).sort((a,b)=>k.indexOf(a.t)-k.indexOf(b.t))},by=id=>all().find(e=>e.id==id)||{n:'(eliminado)',t:'Propio'};
 const msg=t=>{const e=$('#ts');e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>e.style.display='none',2600)};
 const save=()=>{clearTimeout(tm);tm=setTimeout(()=>doc&&doc.set({j:JSON.stringify(S)}).catch(()=>msg('No se pudo guardar')),300)};
 const im=e=>S.img[e.id]?`<img src="${S.img[e.id]}" alt="">`:`<div class=ph>${TY[e.t]||'⭐'}</div>`;
@@ -94,12 +108,12 @@ function ed(i,j){const l0=LS(i),x=l0[j],e=by(x.i);
  $('#es').onchange=()=>{x.s=+$('#es').value;save();rwk()};$('#ek').onchange=()=>{S.kg[x.i]=+$('#ek').value;save();rwk()};$('#ok').onclick=()=>dlg.close();
  const mv=k=>{const l=l0,n=j+k;if(n<0||n>=l.length)return;[l[j],l[n]]=[l[n],l[j]];save();rwk();dlg.close()};
  $('#up').onclick=()=>mv(-1);$('#dn').onclick=()=>mv(1);$('#rm').onclick=()=>{l0.splice(j,1);save();rwk();dlg.close()};dlg.showModal()}
-function pick(i){const l0=LS(i),pre=new Set(l0.map(x=>x.i)),ad={};
+function pick(i){const l0=LS(i),pre=new Set(l0.map(x=>x.i)),ad={};dlg.className='full';
  dlg.innerHTML=`<h3>Agregar a ${i=='r'?'día de reemplazo':DN[i]}</h3><input type=text id=pq placeholder="Buscar…"><select id=pt><option>Todo${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select><div id=pl></div><p><button class=p id=ok>Listo</button></p>`;
  const f=()=>{const q=$('#pq').value.toLowerCase(),t=$('#pt').value;$('#pl').innerHTML=all().filter(e=>(t=='Todo'||e.t==t)&&e.n.toLowerCase().includes(q)).map(e=>`<div class="pr${ad[e.id]?' ok':''}" style="${pre.has(e.id)?'opacity:.45;cursor:default':''}" data-pk="${e.id}">${im(e)}<div><b>${esc(e.n)}</b><small>${e.t}${ad[e.id]?' · agregado ✓ (tocá para quitar)':pre.has(e.id)?' · ya está en el día':''}</small></div></div>`).join('')||'<div class=em>Sin resultados</div>'};
  $('#pq').oninput=f;$('#pt').onchange=f;f();$('#ok').onclick=()=>dlg.close();
  $('#pl').onclick=ev=>{const r=ev.target.closest('[data-pk]');if(!r)return;const id=r.dataset.pk;if(pre.has(id))return;if(ad[id]){l0.splice(l0.indexOf(ad[id]),1);delete ad[id]}else{ad[id]={i:id,s:3};l0.push(ad[id])}save();rwk();f()};
- dlg.showModal()}
+ dlg.showModal();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}
 function cdlg(id){const e=by(id),cus=S.cx.some(c=>c.id==id);
  dlg.innerHTML=`<h3>${esc(e.n)}</h3><div class=big>${im(e)}</div><p class=mut style="text-align:center;margin:0 0 8px">${e.t}</p>
  <label>Imagen (se guarda en la página)<input type=file id=fi accept="image/*"></label>${S.img[id]?'<button id=ri style="width:100%;margin-bottom:8px">Quitar imagen</button>':''}
@@ -139,7 +153,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-p],[data-k
  else if(D.a=='rst')cf('¿Restablecer todo? No se puede deshacer.',()=>{S=def()})});
 document.addEventListener('change',e=>{if(e.target.id=='rs'){S.a=e.target.value;save();rwk()}else if(e.target.id=='ty')rcat()});
 let sx=0;$('#wk').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('#wk').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&!dlg.open){sel=Math.min(4,Math.max(0,(typeof sel!='number'?(dx<0?-1:5):sel)+(dx<0?1:-1)));pk=1;rwk()}});document.addEventListener('visibilitychange',()=>{if(!document.hidden){const t=TDf();if(t!=TD){TD=t;if(!pk)sel=t<5?t:null;if(page=='wk')rwk()}}});
-$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
+dlg.addEventListener('close',()=>dlg.className='');$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
 render();
 (async()=>{try{const db=window.claude&&await claude.use('db');if(!db){rcfg();return}doc=db.doc('gym/state');const s=await doc.get();if(s.exists&&s.data().j){S={...def(),...JSON.parse(s.data().j)};mig()}}catch(er){doc=null}render()})();
 </script></body></html>
