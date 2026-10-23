@@ -83,8 +83,10 @@ const day=()=>({m:'g',e:[]}),nr=()=>({d:[0,1,2,3,4].map(day),rep:[]}),def=()=>({
 let S=def(),doc=null,page='wk',tm,tt;const WD=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],TDf=()=>(new Date().getDay()+6)%7;let TD=TDf(),sel=TD<5?TD:null,pk=0;
 const all=()=>{const k=Object.keys(TY);return EX.concat(S.cx).sort((a,b)=>k.indexOf(a.t)-k.indexOf(b.t))},by=id=>all().find(e=>e.id==id)||{n:'(eliminado)',t:'Propio'};
 const msg=t=>{const e=$('#ts');e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>e.style.display='none',2600)};
-const save=()=>{clearTimeout(tm);tm=setTimeout(()=>doc&&doc.set({j:JSON.stringify(S)}).catch(()=>msg('No se pudo guardar')),300)};
-const im=e=>S.img[e.id]?`<img src="${S.img[e.id]}" alt="">`:`<div class=ph>${TY[e.t]||'⭐'}</div>`;
+let LI={};try{LI=JSON.parse(localStorage.getItem('gym-i')||'{}')}catch(e){}
+const svI=()=>{try{localStorage.setItem('gym-i',JSON.stringify(LI))}catch(e){msg('No hay espacio para guardar más imágenes en este dispositivo')}};
+const save=()=>{try{localStorage.setItem('gym-s',JSON.stringify(S))}catch(e){}clearTimeout(tm);tm=setTimeout(()=>doc&&doc.set({j:JSON.stringify(S)}).catch(()=>msg('No se pudo guardar')),300)};
+const im=e=>(S.img[e.id]||LI[e.id])?`<img src="${S.img[e.id]||LI[e.id]}" alt="">`:`<div class=ph>${TY[e.t]||'⭐'}</div>`;
 const rng=(a,b,s,v)=>{let o='';for(let n=a;n<=b+1e-9;n+=s)o+=`<option${n==v?' selected':''}>${n}</option>`;return o};
 const R=()=>S.r[S.a],LS=s=>s=='r'?(R().rep=R().rep||[]):R().d[s].e,dlg=$('#dlg');
 const EN=(x,s,j)=>{const e=by(x.i);return `<div class=e data-ed="${s}:${j}">${im(e)}<div class=i><b>${esc(e.n)}</b><div class=h>${x.s} × ${S.kg[x.i]||0} kg</div><small>series · peso máx.</small></div></div>`};
@@ -103,7 +105,7 @@ function rwk(){let h=`<div class=nv><button data-a=menu>☰ ${esc(S.a)}</button>
    }
   h+='</div>'});
  $('#wk').innerHTML=h+'</div>'}
-function rcfg(){$('#cfg').innerHTML=`<h2>Ajustes</h2><div class=card><h3>Almacenamiento</h3><p class=mut>${doc?'Tus rutinas e imágenes se guardan en la propia página, no en el dispositivo.':'Sin conexión con el almacenamiento de la página: los cambios no se guardarán.'}</p></div><div class=card><h3>Copia de seguridad</h3><p class=mut>Exportá o importá tus rutinas, ejercicios propios y pesos máximos (sin imágenes).</p><button data-a=exp>Exportar</button> <button data-a=imp>Importar</button></div><div class=card><h3>Restablecer</h3><p class=mut>Borra todas las rutinas, ejercicios propios y referencias a imágenes.</p><button data-a=rst style="color:#ff6b6b">Restablecer todo</button></div>`}
+function rcfg(){$('#cfg').innerHTML=`<h2>Ajustes</h2><div class=card><h3>Almacenamiento</h3><p class=mut>${doc?'Tus rutinas e imágenes se guardan en la propia página, con una copia de respaldo en este dispositivo.':'Aquí la página no tiene almacenamiento propio: tus rutinas e imágenes se guardan solo en este navegador y no se sincronizan con otros dispositivos. Usá Exportar para hacer copias.'}</p></div><div class=card><h3>Copia de seguridad</h3><p class=mut>Exportá o importá tus rutinas, ejercicios propios y pesos máximos (sin imágenes).</p><button data-a=exp>Exportar</button> <button data-a=imp>Importar</button></div><div class=card><h3>Restablecer</h3><p class=mut>Borra todas las rutinas, ejercicios propios y referencias a imágenes.</p><button data-a=rst style="color:#ff6b6b">Restablecer todo</button></div>`}
 function render(){$('#cat').hidden=page!='cat';$('#wk').hidden=page!='wk';$('#cfg').hidden=page!='cfg';$('#bar').style.display=page=='cat'?'flex':'none';page=='cat'?rcat():page=='wk'?rwk():rcfg()}
 function ed(i,j){const l0=LS(i),x=l0[j],e=by(x.i);
  dlg.innerHTML=`<h3>${esc(e.n)}</h3><label>Series<select id=es>${rng(1,12,1,x.s)}</select></label><label>Peso máximo alcanzado (kg)<select id=ek>${rng(0,300,2.5,S.kg[x.i]||0)}</select></label><p class=mut style="margin:0 0 8px;font-size:12px">El peso se actualiza en todas las veces que aparece este ejercicio.</p><p><button class=p id=ok>Listo</button><button id=up>▲ Subir</button><button id=dn>▼ Bajar</button><button id=rm style="color:#ff6b6b">Quitar</button></p>`;
@@ -118,17 +120,17 @@ function pick(i){const l0=LS(i),pre=new Set(l0.map(x=>x.i)),ad={};dlg.className=
  dlg.showModal();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}
 function cdlg(id){const e=by(id),cus=S.cx.some(c=>c.id==id);
  dlg.innerHTML=`<h3>${esc(e.n)}</h3><div class=big>${im(e)}</div><p class=mut style="text-align:center;margin:0 0 8px">${e.t}</p>
- <label>Imagen (se guarda en la página)<input type=file id=fi accept="image/*"></label>${S.img[id]?'<button id=ri style="width:100%;margin-bottom:8px">Quitar imagen</button>':''}
+ <label>Imagen (se guarda en la página)<input type=file id=fi accept="image/*"></label>${(S.img[id]||LI[id])?'<button id=ri style="width:100%;margin-bottom:8px">Quitar imagen</button>':''}
  <label>Día<select id=ad>${DN.map((n,i)=>`<option value=${i}>${n}`).join('')}<option value=r>Día de reemplazo</select></label>
  
  <p><button class=p id=ag>Agregar a la semana</button>${cus?'<button id=dx style="color:#ff6b6b">Borrar ejercicio</button>':''}<button id=cl>Cerrar</button></p>`;
  $('#cl').onclick=()=>dlg.close();
- $('#fi').onchange=async()=>{const f=$('#fi').files[0];if(!f)return;try{const A=window.claude&&await claude.use('assets');if(!A){msg('La carga de imágenes no está disponible aquí');return}
+ $('#fi').onchange=async()=>{const f=$('#fi').files[0];if(!f)return;try{const A=window.claude&&await claude.use('assets');
   const bm=await createImageBitmap(f),W=400,H=600,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),r=Math.max(W/bm.width,H/bm.height),w=bm.width*r,h=bm.height*r;x.drawImage(bm,(W-w)/2,(H-h)/2,w,h);
-  const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),u=await A.upload(b);S.img[id]=u.url;save();render();cdlg(id)}catch(er){msg('No se pudo subir la imagen')}};
- if(S.img[id])$('#ri').onclick=()=>{delete S.img[id];save();render();cdlg(id)};
+  if(A){const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),u=await A.upload(b);S.img[id]=u.url;save()}else{LI[id]=c.toDataURL('image/jpeg',.8);svI()}render();cdlg(id)}catch(er){msg('No se pudo subir la imagen')}};
+ if(S.img[id]||LI[id])$('#ri').onclick=()=>{delete S.img[id];delete LI[id];svI();save();render();cdlg(id)};
  $('#ag').onclick=()=>{const v=$('#ad').value;LS(v=='r'?'r':+v).push({i:id,s:3});save();render();msg('Agregado a '+(v=='r'?'día de reemplazo':DN[+v]))};
- if(cus)$('#dx').onclick=()=>{S.cx=S.cx.filter(c=>c.id!=id);delete S.img[id];Object.values(S.r).forEach(r=>{r.rep=(r.rep||[]).filter(x=>x.i!=id);r.d.forEach(d=>{d.e=d.e.filter(x=>x.i!=id)})});delete S.kg[id];save();dlg.close();render()};
+ if(cus)$('#dx').onclick=()=>{S.cx=S.cx.filter(c=>c.id!=id);delete S.img[id];delete LI[id];svI();Object.values(S.r).forEach(r=>{r.rep=(r.rep||[]).filter(x=>x.i!=id);r.d.forEach(d=>{d.e=d.e.filter(x=>x.i!=id)})});delete S.kg[id];save();dlg.close();render()};
  dlg.showModal()}
 function nx(){dlg.innerHTML=`<h3>Ejercicio propio</h3><label>Nombre<input type=text id=nn></label><label>Tipo<select id=nt>${Object.keys(TY).map(t=>`<option>${t}`).join('')}</select></label><p><button class=p id=ok>Crear</button><button id=cl>Cancelar</button></p>`;
  $('#cl').onclick=()=>dlg.close();$('#ok').onclick=()=>{const n=$('#nn').value.trim();if(!n)return;S.cx.push({id:'c'+Date.now(),n,t:$('#nt').value});save();dlg.close();render()};dlg.showModal()}
@@ -156,7 +158,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-p],[data-k
  else if(D.a=='rst')cf('¿Restablecer todo? No se puede deshacer.',()=>{S=def()})});
 document.addEventListener('change',e=>{if(e.target.id=='rs'){S.a=e.target.value;save();$('#sb').hidden=true;rwk()}else if(e.target.id=='ty')rcat()});
 let sx=0;$('#wk').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('#wk').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&!dlg.open){sel=Math.min(4,Math.max(0,(typeof sel!='number'?(dx<0?-1:5):sel)+(dx<0?1:-1)));pk=1;rwk()}});document.addEventListener('visibilitychange',()=>{if(!document.hidden){const t=TDf();if(t!=TD){TD=t;if(!pk)sel=t<5?t:null;if(page=='wk')rwk()}}});
-dlg.addEventListener('close',()=>dlg.className='');$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
+try{const l=localStorage.getItem('gym-s');if(l){S={...def(),...JSON.parse(l)};mig()}}catch(e){}dlg.addEventListener('close',()=>dlg.className='');$('#q').oninput=rcat;$('#ty').innerHTML='<option>Todo'+Object.keys(TY).map(t=>`<option>${t}`).join('');
 render();
-(async()=>{try{const db=window.claude&&await claude.use('db');if(!db){rcfg();return}doc=db.doc('gym/state');const s=await doc.get();if(s.exists&&s.data().j){S={...def(),...JSON.parse(s.data().j)};mig()}}catch(er){doc=null}render()})();
+(async()=>{try{const db=window.claude&&await claude.use('db');if(!db){rcfg();return}doc=db.doc('gym/state');const s=await doc.get();if(s.exists&&s.data().j){S={...def(),...JSON.parse(s.data().j)};mig();try{localStorage.setItem('gym-s',JSON.stringify(S))}catch(e){}}else save()}catch(er){doc=null}render()})();
 </script></body></html>
